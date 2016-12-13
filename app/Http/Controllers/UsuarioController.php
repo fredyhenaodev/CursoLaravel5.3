@@ -14,7 +14,9 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        //
+        $users = User::all();
+        //$users->get();
+        return view('usuario.index',compact('users'));
     }
 
     /**
@@ -40,7 +42,7 @@ class UsuarioController extends Controller
         $user->email=$request->correo;
         $user->password=bcrypt($request->password);
         $user->save();
-        return 'Usuario Guardado correctamente';
+        return redirect('/usuario')->with('message','store');
     }
 
     /**
