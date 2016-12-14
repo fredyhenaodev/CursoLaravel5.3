@@ -44,7 +44,8 @@ class UsuarioController extends Controller
         $user->email=$request->correo;
         $user->password=$request->password;
         $user->save();
-        return Redirect('/usuario')->with('message', 'store');
+        Session::flash('message', 'Usuario Creado Correctamente.');
+        return redirect::to('/usuario');
     }
 
     /**
@@ -95,6 +96,8 @@ class UsuarioController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $user = User::destroy($id);
+        Session::flash('message', 'Usuario Eliminado Correctamente.');
+        return redirect::to('/usuario');
     }
 }
