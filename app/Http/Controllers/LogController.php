@@ -2,14 +2,13 @@
 
 namespace Cinema\Http\Controllers;
 
-use Cinema\User;
 use Illuminate\Http\Request;
-use Cinema\Http\Requests\UserCreateRequest;
-use Cinema\Http\Requests\UserUpdateRequest;
+use Cinema\Http\Requests\LoginRequest;
+use Auth;
 use Session;
 use Redirect;
 
-class UsuarioController extends Controller
+class LogController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -18,10 +17,7 @@ class UsuarioController extends Controller
      */
     public function index()
     {
-        $users = User::paginate(2);
-        //onlyTrashed()->  mostrar usuarios eliminados
-        //$users->get();
-        return view('usuario.index', compact('users'));
+        //
     }
 
     /**
@@ -31,7 +27,7 @@ class UsuarioController extends Controller
      */
     public function create()
     {
-        return view('usuario.create');
+        //
     }
 
     /**
@@ -40,15 +36,14 @@ class UsuarioController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(UserCreateRequest $request)
+    public function store(LoginRequest $request)
     {
-        $user = new User;
-        $user->name=$request->name;
-        $user->email=$request->email;
-        $user->password=$request->password;
-        $user->save();
-        Session::flash('message', 'Usuario Creado Correctamente.');
-        return redirect::to('/usuario');
+        if (Auth::attempt(['email'=>$request['email'],'password'=>$request['password']])) {
+            return Redirect::to('admin');
+        } else {
+            Session::flash('message-error', 'Credenciales Incorrectas.');
+            return Redirect::to('/');
+        }
     }
 
     /**
@@ -70,8 +65,7 @@ class UsuarioController extends Controller
      */
     public function edit($id)
     {
-        $users = User::find($id);
-        return view('usuario.edit', ['user'=>$users]);
+        //
     }
 
     /**
@@ -81,14 +75,9 @@ class UsuarioController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function update(UserUpdateRequest $request, $id)
+    public function update(Request $request, $id)
     {
-        $user = User::find($id);
-        $user->fill($request->all());
-        $user->save();
-
-        Session::flash('message', 'Usuario Editado Correctamente.');
-        return redirect::to('/usuario');
+        //
     }
 
     /**
@@ -99,9 +88,12 @@ class UsuarioController extends Controller
      */
     public function destroy($id)
     {
-        $user = User::find($id);
-        $user->delete();
-        Session::flash('message', 'Usuario Eliminado Correctamente.');
-        return redirect::to('/usuario');
+        //
+    }
+
+    public function logout()
+    {
+        Auth::logout();
+        return Redirect::to('/');
     }
 }

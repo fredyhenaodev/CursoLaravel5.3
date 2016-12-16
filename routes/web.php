@@ -10,10 +10,12 @@
 | to using a Closure or controller method. Build something great!
 |
 */
-Route::get('/','FrontController@index');
-Route::get('contacto','FrontController@contacto');
-Route::get('reviews','FrontController@reviews');
-Route::get('admin','FrontController@admin');
+Route::get('/', 'FrontController@index');
+Route::get('contacto', 'FrontController@contacto');
+Route::get('reviews', 'FrontController@reviews');
+Route::get('admin', 'FrontController@admin');
 
-Route::resource('usuario','UsuarioController');
+Route::resource('usuario', 'UsuarioController');
+Route::resource('log', 'LogController');
+Route::get('logout', 'LogController@logout');
 //https://github.com/RpL02/CursoLaravel5.1/tree/Vistas
