@@ -7,6 +7,13 @@ use Illuminate\Http\Request;
 
 class GeneroController extends Controller
 {
+    public function listing()
+    {
+        $genre = Genero::all();
+        return response()->json(
+          $genre->toArray()
+        );
+    }
     /**
      * Display a listing of the resource.
      *
@@ -14,7 +21,7 @@ class GeneroController extends Controller
      */
     public function index()
     {
-        //
+        return view('genero.index');
     }
 
     /**
