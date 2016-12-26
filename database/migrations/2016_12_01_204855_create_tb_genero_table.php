@@ -13,12 +13,12 @@ class CreateTbGeneroTable extends Migration
      */
     public function up()
     {
-      Schema::create('tb_genero',function(Blueprint $table){
-        $table->engine = 'InnoDB';
-        $table->increments('genero_id');
-        $table->string('genero');
-        $table->timestamps();
-      });
+        Schema::create('tb_genero', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+            $table->increments('id');
+            $table->string('genero');
+            $table->timestamps();
+        });
     }
 
     /**

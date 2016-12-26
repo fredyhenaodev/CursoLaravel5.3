@@ -71,7 +71,10 @@ class GeneroController extends Controller
      */
     public function edit($id)
     {
-        //
+        $datos = Genero::find($id);
+        return response()->json(
+          $datos->toArray()
+        );
     }
 
     /**
@@ -83,7 +86,12 @@ class GeneroController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $datos = Genero::find($id);
+        $datos->fill($request->all());
+        $datos->save();
+        return response()->json([
+          "mensaje" => "actualizado"
+        ]);
     }
 
     /**
