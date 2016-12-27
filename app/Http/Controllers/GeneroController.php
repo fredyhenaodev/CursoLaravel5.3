@@ -4,6 +4,7 @@ namespace Cinema\Http\Controllers;
 
 use Cinema\Genero;
 use Illuminate\Http\Request;
+use Cinema\Http\Requests\GeneroRequest;
 
 class GeneroController extends Controller
 {
@@ -40,7 +41,7 @@ class GeneroController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(GeneroRequest $request)
     {
         if ($request->ajax()) {
             $datos = new Genero;
