@@ -8,8 +8,24 @@ function Carga(){
   $("#valores").empty();
   $.get(route, function(res){
     $(res).each(function(key,value){
-      tablaDatos.append("<tr><td>"+value.genero+"</td><td><button class='btn btn-primary' value="+value.id+" OnClick='Mostrar(this);' data-toggle='modal' data-target='#myModal'>Editar</button> <button class='btn btn-danger'>Eliminar</button></td></tr>");
+      tablaDatos.append("<tr><td>"+value.genero+"</td><td><button class='btn btn-primary' value="+value.id+" OnClick='Mostrar(this);' data-toggle='modal' data-target='#myModal'>Editar</button> <button class='btn btn-danger' value="+value.id+" OnClick='Eliminar(this);'>Eliminar</button></td></tr>");
     });
+  });
+}
+
+function Eliminar(id){
+  var route = "http://localhost:8000/genero/"+id.value+"";
+  var token = $("#token").val();
+
+  $.ajax({
+    url: route,
+    headers: {'X-CSRF-TOKEN': token},
+    type: 'DELETE',
+    dataType: 'json',
+    success: function(){
+          Carga();
+          $("#msj-success").fadeIn();
+    }
   });
 }
 
