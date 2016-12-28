@@ -2,7 +2,9 @@
 
 namespace Cinema\Http\Controllers;
 
+use Cinema\Genero;
 use Illuminate\Http\Request;
+use Cinema\Movie;
 
 class MovieController extends Controller
 {
@@ -13,7 +15,6 @@ class MovieController extends Controller
      */
     public function index()
     {
-        return "Estoy en el index";
     }
 
     /**
@@ -23,7 +24,8 @@ class MovieController extends Controller
      */
     public function create()
     {
-        return "Estoy en el create";
+        $generos = Genero::pluck('genero', 'id');
+        return view('peliculas.create', compact('generos'));
     }
 
     /**
@@ -34,7 +36,15 @@ class MovieController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $datos = new Movie;
+        $datos->name=$request->name;
+        $datos->path=$request->path;
+        $datos->cast=$request->cast;
+        $datos->direction=$request->direction;
+        $datos->duration=$request->duration;
+        $datos->genero_id=$request->genero_id;
+        $datos->save();
+        return "listo";
     }
 
     /**

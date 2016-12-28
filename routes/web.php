@@ -20,7 +20,7 @@ Route::resource('log', 'LogController');
 Route::get('logout', 'LogController@logout');
 Route::resource('genero', 'GeneroController');
 Route::get('generos', 'GeneroController@listing');
-
+Route::resource('pelicula', 'MovieController');
 //https://github.com/RpL02/CursoLaravel5.1/tree/Vistas
 
 Auth::routes();

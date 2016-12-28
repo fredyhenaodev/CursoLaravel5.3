@@ -13,19 +13,20 @@ class CreateTbMovieTable extends Migration
      */
     public function up()
     {
-      Schema::create('tb_movie',function(Blueprint $table){
-        $table->engine = 'InnoDB';
-        $table->increments('movie_id');
-        $table->string('name');
-        $table->string('cast');
-        $table->string('direction');
-        $table->string('duration');
-        $table->timestamps();
-        $table->unsignedInteger('genero_id');
-      });
-      Schema::table('tb_movie',function(Blueprint $table){
-        $table->foreign('genero_id')->references('genero_id')->on('tb_genero');
-      });
+        Schema::create('tb_movie', function (Blueprint $table) {
+            $table->engine = 'InnoDB';
+            $table->increments('movie_id');
+            $table->string('name');
+            $table->string('cast');
+            $table->string('path');
+            $table->string('direction');
+            $table->string('duration');
+            $table->timestamps();
+            $table->unsignedInteger('genero_id');
+        });
+        Schema::table('tb_movie', function (Blueprint $table) {
+            $table->foreign('genero_id')->references('id')->on('tb_genero');
+        });
     }
 
     /**
