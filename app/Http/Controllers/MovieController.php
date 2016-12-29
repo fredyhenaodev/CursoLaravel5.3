@@ -5,9 +5,18 @@ namespace Cinema\Http\Controllers;
 use Cinema\Genero;
 use Illuminate\Http\Request;
 use Cinema\Movie;
+use Session;
+use Redirect;
+use Illuminate\Routing\Route;
 
 class MovieController extends Controller
 {
+    public function __construct()
+    {
+        $this->middleware('auth');
+        $this->middleware('admin');
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -68,7 +77,9 @@ class MovieController extends Controller
      */
     public function edit($id)
     {
-        //
+        $genres = Genero::pluck('Genero', 'id');
+        $movie = Movie::find($id);
+        return view('peliculas.edit', ['movie'=>$movie,'generos'=>$genres]);
     }
 
     /**
@@ -80,7 +91,11 @@ class MovieController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $movie= Movie::find($id);
+        $movie->fill($request->all());
+        $movie->save();
+        Session::flash('message', 'Pelicula Editada Correctamente');
+        return Redirect::to('/pelicula');
     }
 
     /**
@@ -91,6 +106,10 @@ class MovieController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $movie= Movie::find($id);
+        $movie->delete();
+        \Storage::delete($movie->path);
+        Session::flash('message', 'Pelicula Eliminada Correctamente');
+        return Redirect::to('/pelicula');
     }
 }

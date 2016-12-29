@@ -13,9 +13,11 @@ class Movie extends Model
 
     public function setPathAttribute($path)
     {
-        $name = Carbon::now()->second.$path->getClientOriginalName();
-        $this->attributes['path'] = $name;
-        \Storage::disk('local')->put($name, \File::get($path));
+        if (!empty($path)) {
+            $name = Carbon::now()->second.$path->getClientOriginalName();
+            $this->attributes['path'] = $name;
+            \Storage::disk('local')->put($name, \File::get($path));
+        }
     }
 
     public static function Movies()
