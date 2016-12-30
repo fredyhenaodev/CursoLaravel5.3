@@ -20,6 +20,13 @@ class ResetPasswordController extends Controller
 
     use ResetsPasswords;
 
+    protected $redirectTo = '/admin';
+    protected function resetPassword($user, $password)
+    {
+        $user->password = $password;
+        $user->save();
+        //Auth::login($user);
+    }
     /**
      * Create a new controller instance.
      *

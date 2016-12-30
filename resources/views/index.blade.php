@@ -29,6 +29,7 @@
 					</div>
 					{!! Form::submit('Ingresar',['class'=>'btn btn-primary ']); !!}
 				{!! Form::close() !!}
+				{!!link_to('password/email', $title = 'Olvidaste tu contraseña?', $attributes = null, $secure = null)!!}
 			</div>
 		</div>
 		<div class="review-slider">
