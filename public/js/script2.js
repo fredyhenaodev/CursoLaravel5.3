@@ -4,7 +4,7 @@ $(document).ready(function(){
 
 function Carga(){
   var tablaDatos = $("#valores");
-  var route = "http://localhost:8000/generos";
+  var route = "/generos";
   $("#valores").empty();
   $.get(route, function(res){
     $(res).each(function(key,value){
@@ -14,7 +14,7 @@ function Carga(){
 }
 
 function Eliminar(id){
-  var route = "http://localhost:8000/genero/"+id.value+"";
+  var route = "/genero/"+id.value+"";
   var token = $("#token").val();
 
   $.ajax({
@@ -31,7 +31,7 @@ function Eliminar(id){
 
 function Mostrar(id){
 //  console.log(id.value);
-  var route = "http://localhost:8000/genero/"+id.value+"/edit";
+  var route = "/genero/"+id.value+"/edit";
 
   $.get(route,function(res){
     $("#genre").val(res.genero);
@@ -42,7 +42,7 @@ function Mostrar(id){
 $("#actualizar").click(function(){
     var valor = $("#id").val();
     var dato = $("#genre").val();
-    var route = "http://localhost:8000/genero/"+valor+"";
+    var route = "/genero/"+valor+"";
     var token = $("#token").val();
 
     $.ajax({
